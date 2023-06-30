@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+    <changeSet id="db-change-set-1" author="template">
+        <sqlFile path="db/sql/2022-11-09-0000_create_table_users.sql"/>
+    </changeSet>
+
+    <changeSet id="db-change-set-2" author="template">
+        <sqlFile path="db/sql/2022-11-09-1111_create_table_roles.sql"/>
+    </changeSet>
+
+    <changeSet id="db-change-set-3" author="template">
+        <sqlFile path="db/sql/2022-11-09-1115_create_table_user_role.sql"/>
+    </changeSet>
+
+    <changeSet id="db-change-set-4" author="template">
+        <sqlFile path="db/sql/2022-11-09-2222_insert_table_roles.sql"/>
+    </changeSet>
+
+</databaseChangeLog>
