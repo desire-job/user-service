@@ -1,10 +1,10 @@
 package com.gmail.apachdima.desirejob.userservice.service.impl;
 
+import com.gmail.apachdima.desirejob.commonservice.dto.auth.SignInRequestDTO;
+import com.gmail.apachdima.desirejob.commonservice.dto.auth.SignUpRequestDTO;
+import com.gmail.apachdima.desirejob.commonservice.dto.user.UserResponseDTO;
 import com.gmail.apachdima.desirejob.userservice.service.AuthService;
 import com.gmail.apachdima.desirejob.userservice.service.UserService;
-import com.gmail.apachdima.desirejob.userservice.dto.auth.SignInRequestDTO;
-import com.gmail.apachdima.desirejob.userservice.dto.auth.SignUpRequestDTO;
-import com.gmail.apachdima.desirejob.userservice.dto.user.UserResponseDTO;
 import com.gmail.apachdima.desirejob.userservice.model.User;
 import com.gmail.apachdima.desirejob.userservice.util.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;

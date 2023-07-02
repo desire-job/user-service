@@ -1,7 +1,7 @@
 package com.gmail.apachdima.desirejob.userservice.config;
 
-import com.gmail.apachdima.desirejob.userservice.common.message.Error;
-import com.gmail.apachdima.desirejob.userservice.common.message.Info;
+import com.gmail.apachdima.desirejob.commonservice.constant.message.CommonError;
+import com.gmail.apachdima.desirejob.commonservice.constant.message.CommonInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -33,7 +33,7 @@ public class LoggerConfig {
             joinPoint.getSignature().getDeclaringTypeName(),
             joinPoint.getSignature().getName(),
             Objects.nonNull(e.getCause()) ? e.getCause() : e.getMessage()};
-        log.error(messageSource.getMessage(Error.LOG_CONTROLLER_EXECUTE.getKey(), params, Locale.ENGLISH));
+        log.error(messageSource.getMessage(CommonError.LOG_CONTROLLER_EXECUTE.getKey(), params, Locale.ENGLISH));
     }
 
     @Around("withinController()")
@@ -50,7 +50,7 @@ public class LoggerConfig {
             joinPoint.getSignature().getName(),
             executionTimeInMillis};
 
-        log.info(messageSource.getMessage(Info.INFO_LOG_CONTROLLER_EXECUTE.getKey(), params, Locale.ENGLISH));
+        log.info(messageSource.getMessage(CommonInfo.INFO_LOG_CONTROLLER_EXECUTE.getKey(), params, Locale.ENGLISH));
         return result;
     }
 }

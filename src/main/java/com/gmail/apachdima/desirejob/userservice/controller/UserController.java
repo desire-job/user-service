@@ -1,8 +1,7 @@
 package com.gmail.apachdima.desirejob.userservice.controller;
 
-import com.gmail.apachdima.desirejob.userservice.dto.user.UserRequestDTO;
-import com.gmail.apachdima.desirejob.userservice.dto.user.UserResponseDTO;
-import com.gmail.apachdima.desirejob.userservice.dto.user.UserSearchRequestDTO;
+import com.gmail.apachdima.desirejob.commonservice.dto.user.UserRequestDTO;
+import com.gmail.apachdima.desirejob.commonservice.dto.user.UserResponseDTO;
 import com.gmail.apachdima.desirejob.userservice.service.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -23,11 +22,9 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping(value = "/search")
-    public ResponseEntity<Page<UserResponseDTO>> search(Pageable pageable,
-                                                        @RequestParam(value = "locale", required = false, defaultValue = "en") Locale locale,
-                                                        @RequestBody(required = false) UserSearchRequestDTO userSearchRequestDTO) {
-        return ResponseEntity.ok().body(userService.search(pageable, userSearchRequestDTO, locale));
+    @GetMapping()
+    public ResponseEntity<Page<UserResponseDTO>> findAll(Pageable pageable) {
+        return ResponseEntity.ok().body(userService.findAll(pageable));
     }
 
     @PostMapping
