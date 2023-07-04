@@ -1,8 +1,8 @@
 package com.gmail.apachdima.desirejob.userservice.config;
 
-import com.gmail.apachdima.desirejob.commonservice.config.CommonLoggerConfig;
+import com.gmail.apachdima.desirejob.commonservice.config.CommonFeignConfig;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class LoggerConfig extends CommonLoggerConfig {
+public class FeignConfig extends CommonFeignConfig {
 }
