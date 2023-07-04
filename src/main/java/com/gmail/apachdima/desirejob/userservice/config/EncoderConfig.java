@@ -1,15 +1,8 @@
 package com.gmail.apachdima.desirejob.userservice.config;
 
-import org.springframework.context.annotation.Bean;
+import com.gmail.apachdima.desirejob.commonservice.config.CommonEncoderConfig;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
-public class EncoderConfig {
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+public class EncoderConfig extends CommonEncoderConfig {
 }
