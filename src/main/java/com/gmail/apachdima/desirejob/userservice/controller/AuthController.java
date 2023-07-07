@@ -1,6 +1,7 @@
 package com.gmail.apachdima.desirejob.userservice.controller;
 
 import com.gmail.apachdima.desirejob.commonservice.dto.auth.SignInRequestDTO;
+import com.gmail.apachdima.desirejob.commonservice.dto.auth.SignInResponseDTO;
 import com.gmail.apachdima.desirejob.commonservice.dto.auth.SignUpRequestDTO;
 import com.gmail.apachdima.desirejob.commonservice.dto.user.UserResponseDTO;
 import com.gmail.apachdima.desirejob.userservice.service.AuthService;
@@ -23,9 +24,8 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping(value = "/sign-in")
-    public ResponseEntity<?> signIn(@Valid @RequestBody SignInRequestDTO requestDTO) {
-        authService.signIn(requestDTO);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<SignInResponseDTO> signIn(@Valid @RequestBody SignInRequestDTO requestDTO) {
+        return ResponseEntity.ok().body(authService.signIn(requestDTO));
     }
 
     @PostMapping(value = "/sign-up")

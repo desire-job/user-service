@@ -1,6 +1,7 @@
 package com.gmail.apachdima.desirejob.userservice.service;
 
 import com.gmail.apachdima.desirejob.commonservice.dto.auth.SignInRequestDTO;
+import com.gmail.apachdima.desirejob.commonservice.dto.auth.SignInResponseDTO;
 import com.gmail.apachdima.desirejob.commonservice.dto.auth.SignUpRequestDTO;
 import com.gmail.apachdima.desirejob.commonservice.dto.user.UserResponseDTO;
 
@@ -9,7 +10,7 @@ import java.util.Locale;
 
 public interface AuthService {
 
-    void signIn(SignInRequestDTO signInRequestDTO);
+    SignInResponseDTO signIn(SignInRequestDTO signInRequestDTO);
     void signUp(SignUpRequestDTO signUpRequestDTO);
     UserResponseDTO getCurrentUser(Locale locale);
     void logout(HttpServletRequest request);

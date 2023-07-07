@@ -30,4 +30,19 @@ public class UserController {
     public ResponseEntity<UserResponseDTO> create(@Valid @RequestBody UserRequestDTO userRequestDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.create(userRequestDTO));
     }
+
+    @GetMapping("/super_admin")
+    public String getVisitor(@RequestHeader String Authorization) {
+        return "Hello super_admin";
+    }
+
+    @GetMapping("/simple_admin")
+    public String getAdmin(@RequestHeader String Authorization) {
+        return "Hello simple_admin";
+    }
+
+    @GetMapping("/user")
+    public String getUsers(@RequestHeader String Authorization) {
+        return "Hello user";
+    }
 }

@@ -1,3 +1,4 @@
+/*
 package com.gmail.apachdima.desirejob.userservice.config;
 
 import lombok.RequiredArgsConstructor;
@@ -67,3 +68,4 @@ public class SecurityConfig {
                     "/swagger-ui/**");
     }
 }
+*/
