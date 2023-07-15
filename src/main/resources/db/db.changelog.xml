@@ -22,4 +22,8 @@
         <sqlFile path="db/sql/2022-11-09-2222_insert_table_roles.sql"/>
     </changeSet>
 
+    <changeSet id="db-change-set-5" author="template">
+        <sqlFile path="db/sql/2023-07-14-0000_create_table_oauth_clients.sql"/>
+    </changeSet>
+
 </databaseChangeLog>

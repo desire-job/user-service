@@ -1,6 +1,13 @@
 spring:
   profiles:
     active: ${APP_PROFILE}
+  security:
+    oauth:
+      jwt:
+        keystore:
+          password: ${APP_JWT_KEY_STORE_PASSWORD}
+          alias: jwt-key
+          name: jwt.jks
   cloud:
     config:
       name: user-service
@@ -9,3 +16,19 @@ spring:
       username: ${CONFIG_SERVICE_SECURITY_USERNAME}
       password: ${CONFIG_SERVICE_SECURITY_PASSWORD}
       uri: http://${APP_HOST}:${CONFIG_SERVICE_PORT}/${CONFIG_SERVICE_CONTEXT_PATH}
+
+app:
+  default-client:
+    client-id: ${APP_OAUTH_CLIENT_ID}
+    client-secret: ${APP_OAUTH_CLIENT_SECRET}
+  ssl:
+    trust-store:
+      password: ${USER_SERVICE_SSL_TRUST_STORE_PASSWORD}
+
+server:
+  ssl:
+    key-store: ./user-service/app-keystore.jks
+    key-store-password: ${USER_SERVICE_SSL_KEY_STORE_PASSWORD}
+    keyAlias: app-key-store
+
+spring.security.oauth.jwt: true
