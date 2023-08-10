@@ -1,69 +1,52 @@
 package com.gmail.apachdima.desirejob.userservice.config;
 
+import com.gmail.apachdima.desirejob.commonservice.constant.OpenApiAsset;
+import com.gmail.apachdima.desirejob.userservice.util.converter.JwtAuthConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
-import org.springframework.security.config.annotation.web.configurers.SessionManagementConfigurer;
-import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(securedEnabled = true, jsr250Enabled = true, prePostEnabled = true)
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final UserDetailsService userDetailsServiceImpl;
-    private final PasswordEncoder passwordEncoder;
+    private final JwtAuthConverter jwtAuthConverter;
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
-        return configuration.getAuthenticationManager();
-    }
-
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+            .cors()
+            .and()
             .csrf().disable()
-            .sessionManagement()
-            .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
-            .sessionFixation(SessionManagementConfigurer.SessionFixationConfigurer::newSession)
-            .maximumSessions(1)
-            .expiredSessionStrategy(event -> event.getResponse().sendError(HttpStatus.UNAUTHORIZED.value()))
-            .maxSessionsPreventsLogin(false)
-            .and().and()
             .authorizeRequests()
-            .antMatchers("/api/v1/auth/sign-in", "/api/v1/auth/sign-up")
-            .permitAll()
+            .antMatchers(OpenApiAsset.getAssets()).permitAll()
+            .antMatchers("/api/v1/auth/sign-in", "/api/v1/auth/sign-up").permitAll()
             .anyRequest()
             .authenticated()
             .and()
             .formLogin().disable()
             .httpBasic().disable()
-            .exceptionHandling().authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED));
+            .exceptionHandling().authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
+            .and()
+            .oauth2ResourceServer()
+            .jwt()
+            .jwtAuthenticationConverter(jwtAuthConverter)
+            .and().and()
+            .logout()
+            .logoutUrl("/user-service/api/v1/auth/sign-out")
+            .clearAuthentication(true)
+            .invalidateHttpSession(true)
+            .deleteCookies("JSESSIONID");
 
         return http.build();
     }
 
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) ->
-            web.ignoring()
-                .antMatchers("/api-docs",
-                    "/api-docs/**",
-                    "/v3/api-docs/**",
-                    "/configuration/ui",
-                    "/swagger-resources/**",
-                    "/configuration/security",
-                    "/webjars/**",
-                    "/swagger-ui/**");
-    }
 }

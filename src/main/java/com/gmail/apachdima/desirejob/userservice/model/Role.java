@@ -1,14 +1,12 @@
 package com.gmail.apachdima.desirejob.userservice.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
-@Table(name = "roles")
+@Table(name = "keycloak_role")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -16,12 +14,36 @@ import javax.persistence.*;
 public class Role {
 
     @Id
-    @Column(name = "role_", unique = true, nullable = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "roles_seqGen")
-    @SequenceGenerator(name = "roles_seqGen", sequenceName = "roles_role__seq", allocationSize = 1)
-    private Long roleId;
+    @Column(name = "id")
+    private String roleId;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "role", nullable = false)
-    private UserRole role;
+    @Column(name = "client_realm_constraint")
+    private String clientRealmConstraint;
+
+    @Column(name = "client_role")
+    private boolean clientRole;
+
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "realm_id")
+    private String realmId;
+
+    @Column(name = "client")
+    private String client;
+
+    @Column(name = "realm")
+    private String realm;
+
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "composite_role",
+        joinColumns = @JoinColumn(name = "composite"),
+        inverseJoinColumns = @JoinColumn(name = "child_role"))
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Set<Role> childRoles;
 }

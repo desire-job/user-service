@@ -9,3 +9,21 @@ spring:
       username: ${CONFIG_SERVICE_SECURITY_USERNAME}
       password: ${CONFIG_SERVICE_SECURITY_PASSWORD}
       uri: http://${APP_HOST}:${CONFIG_SERVICE_PORT}/${CONFIG_SERVICE_CONTEXT_PATH}
+
+app:
+  auth-server:
+    base-url: ${AUTH_SERVER_BASE_URL}
+    realm:
+      admin-realm: ${AUTH_SERVER_ADMIN_REALM}
+      app-realm-id: ${AUTH_SERVER_APP_REALM_ID}
+      app-realm: ${AUTH_SERVER_APP_REALM}
+    client:
+      client-id: ${AUTH_SERVER_CLIENT_ID}
+      client-secret: ${AUTH_SERVER_CLIENT_SECRET}
+    admin:
+      username: ${KEYCLOAK_ADMIN_USERNAME}
+      password: ${KEYCLOAK_ADMIN_PASSWORD}
+    default-user:
+      username: ${AUTH_SERVER_DEFAULT_USER_USERNAME}
+      password: ${AUTH_SERVER_DEFAULT_USER_PASSWORD}
+      email: ${AUTH_SERVER_DEFAULT_USER_EMAIL}

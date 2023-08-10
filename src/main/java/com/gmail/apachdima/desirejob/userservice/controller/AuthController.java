@@ -1,7 +1,8 @@
 package com.gmail.apachdima.desirejob.userservice.controller;
 
 import com.gmail.apachdima.desirejob.commonservice.dto.auth.SignInRequestDTO;
-import com.gmail.apachdima.desirejob.commonservice.dto.auth.SignUpRequestDTO;
+import com.gmail.apachdima.desirejob.commonservice.dto.auth.SignInResponseDTO;
+import com.gmail.apachdima.desirejob.commonservice.dto.user.UserRequestDTO;
 import com.gmail.apachdima.desirejob.commonservice.dto.user.UserResponseDTO;
 import com.gmail.apachdima.desirejob.userservice.service.AuthService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -23,25 +24,29 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping(value = "/sign-in")
-    public ResponseEntity<?> signIn(@Valid @RequestBody SignInRequestDTO requestDTO) {
-        authService.signIn(requestDTO);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<SignInResponseDTO> signIn(@Valid @RequestBody SignInRequestDTO requestDTO) {
+        return ResponseEntity.ok().body(authService.signIn(requestDTO));
     }
 
     @PostMapping(value = "/sign-up")
-    public ResponseEntity<?> signUp(@Valid @RequestBody SignUpRequestDTO requestDTO) {
+    public ResponseEntity<?> signUp(@Valid @RequestBody UserRequestDTO requestDTO) {
         authService.signUp(requestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @GetMapping(value = "/current-user")
-    public ResponseEntity<UserResponseDTO> getCurrentUser(@RequestParam(value = "locale", required = false, defaultValue = "en") Locale locale) {
+    public ResponseEntity<UserResponseDTO> getCurrentUser(
+        @RequestParam(value = "locale", required = false, defaultValue = "en") Locale locale
+    ) {
         return ResponseEntity.ok().body(authService.getCurrentUser(locale));
     }
 
-    @GetMapping(value = "/logout")
-    public ResponseEntity<?> logout(HttpServletRequest request) {
-        authService.logout(request);
+    @GetMapping(value = "/sign-out")
+    public ResponseEntity<?> signOut(
+        @RequestParam(value = "refreshToken") String refreshToken,
+        HttpServletRequest request
+    ) {
+        authService.signOut(refreshToken, request);
         return ResponseEntity.ok().build();
     }
 }
